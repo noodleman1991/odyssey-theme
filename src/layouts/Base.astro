@@ -2,6 +2,7 @@
 import { SkipLink } from '@components/odyssey-theme';
 import BaseHead from '../components/head/BaseHead.astro';
 import type { Props as BaseHeadProps } from '../components/head/BaseHead.astro';
+import 'aos/dist/aos.css';
 
 export interface Props {
 	seo?: BaseHeadProps;
@@ -13,6 +14,7 @@ const { seo } = Astro.props;
 <html lang="he" dir="rtl">
 	<head>
 		<BaseHead {...seo} />
+
 	</head>
 	<body>
 		<SkipLink />
@@ -22,5 +24,17 @@ const { seo } = Astro.props;
 			<slot />
 		</main>
 		<slot name="footer" />
+		<script>
+			import AOS from 'aos';
+			document.addEventListener('DOMContentLoaded', () => {
+				AOS.init({
+					duration: 920, // 15% slower than default 800ms
+					easing: 'ease-out',
+					once: true,    // Elements only animate once
+					offset: 120,   // Offset (in px) from the original trigger point
+					delay: 0       // Default delay
+				});
+			});
+		</script>
 	</body>
 </html>

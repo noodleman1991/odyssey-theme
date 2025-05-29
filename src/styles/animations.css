@@ -1,0 +1,21 @@
+/* Global animations */
+.pulse-animation {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.delayed-1 {
+    animation-delay: 0.75s;
+}
+
+.delayed-2 {
+    animation-delay: 1.5s;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}

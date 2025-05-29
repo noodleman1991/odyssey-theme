@@ -1,92 +1,269 @@
 ---
-import { Container, FeatureCard } from '@components/odyssey-theme';
+import { Icon } from 'astro-icon/components';
+// import { Image } from 'astro:assets';
+import  QuotationMark from '../../assets/quotation-mark-icon.svg';
 
+import {
+	AnnouncementBar,
+	Button,
+	PromoTextSection,
+	TwoColumnTextSection,
+	ThreeColumnTextSection,
+	YouTubeEmbedSection,
+	StickyTextImageSection,
+	CtaCardSection,
+} from '@components/odyssey-theme';
 import Layout from '../layouts/Page.astro';
-import HomeHeroSection from '../components/sections/heros/HomeHeroSection.astro';
+import Container from '@components/core/Container.astro';
+import TextAndImageHero from '@components/sections/heros/TextAndImageHero.astro';
+import Image from 'astro/components/Image.astro';
+
+const seo = {
+	title: 'הפרוזדור | רומן מדע בדיוני ישראלי מאת מאיר לוקשינסקי',
+	description: 'רומן שקופץ בין תקופות ומפגיש אותנו עם דמויות שחייהן שזורים יחד במארג של גורל וייעוד. במרכז העלילה: הקשר העמוק בין תודעה, מציאות וחלום',
+};
 ---
 
-<Layout>
-	<HomeHeroSection />
-	<Container>
-		<section class="feature-card__section">
-			<h2>Landing Pages</h2>
-			<p>
-				Use one of our landing pages to jumpstart your website or
-				ad campaign.
+<AnnouncementBar
+	text="הצטרפו למסע הספרותי - לחצו כאן להזמנת הספר"
+	href="/blog/posts/remote-work-mental-health/"
+	slot="announcement-bar"
+/>
+<Layout {seo}>
+	<TextAndImageHero reversed>
+		<div slot="text-container">
+			<h1>הפרוזדור</h1>
+			<p class="fixed-bold">
+				מאיר לוקשינסקי
 			</p>
-			<div class="feature-card__grid">
-				<FeatureCard href="/landing-pages/landing-1" title="Landing Page 1" imgSrc="/assets/images/home/screenshots/landing-1">
-				</FeatureCard>
-				<FeatureCard href="/landing-pages/landing-2" title="Landing Page 2" imgSrc="/assets/images/home/screenshots/landing-2">
-				</FeatureCard>
-			</div>
-		</section>
-	</Container>
-
-	<Container>
-		<section class="feature-card__section">
-			<h2>Company Pages</h2>
+			<h2>
+				בין מדע לנסתר יש דלת שמעטים מעזים לפתוח
+			</h2>
 			<p>
-				Use one of our prebuilt company pages for your about page, contact page,
-				legal pages, blog posts, etc.
+				רומן
+				<span class="fixed-bold">מדע בדיוני ישראלי</span>
+				על
+				<span class="pulse-animation">צוללות מהחלום</span>,
+				<span class="pulse-animation delayed-1">מקובלים מן המאה ה־16</span>
+				ומסע
+				<span class="pulse-animation delayed-2">בין ממדים להצלת האנושות</span>
 			</p>
-			<div class="feature-card__grid">
-				<FeatureCard href="/company/about" title="About Page" imgSrc="/assets/images/home/screenshots/about">
-				</FeatureCard>
-				<FeatureCard href="/company/contact" title="Contact Page" imgSrc="/assets/images/home/screenshots/contact">
-				</FeatureCard>
-				<FeatureCard href="/blog/" title="Blog Page" imgSrc="/assets/images/home/screenshots/blog">
-				</FeatureCard>
-				<FeatureCard
-					href="/blog/posts/remote-work-mental-health"
-					title="Blog Post"
-          imgSrc="/assets/images/home/screenshots/blog-post"
-				>
-				</FeatureCard>
-				<FeatureCard
-					href="/company/legal"
-					imgSrc="/assets/images/home/screenshots/legal"
-					title="Legal Page"
-				>
-				</FeatureCard>
-			</div>
-		</section>
-	</Container>
 
-	<Container>
-		<section class="feature-card__section">
-			<h2>Theme Pages</h2>
-			<p>Learn more about how to set up and use the Odyssey Theme.</p>
-			<div class="feature-card__grid">
-				<FeatureCard
-					href="/theme/get-started"
-					imgSrc="/assets/images/home/screenshots/get-started"
-					title="Get Started"
-				>
-				</FeatureCard>
-				<FeatureCard
-					href="/theme/style-guide"
-					imgSrc="/assets/images/home/screenshots/style-guide"
-					title="Style Guide"
-				>
-				</FeatureCard>
+
+		</div>
+		<div slot="btns-container">
+			<Button href="/theme/get-started" customIcon>להזמנת הספר<Fragment slot="icon">
+					<Icon name="ic:baseline-arrow-back-ios" />
+				</Fragment></Button
+			>
+		</div>
+		<picture slot="image-container">
+			<img
+				src="/assets/BookLap.png"
+				alt="כריכת הספר"
+				id="home-hero-image"
+			/>
+		</picture>
+	</TextAndImageHero>
+
+	<section class="promo-text__section">
+		<Container narrow>
+			<div class="promo-content" data-aos="fade-up">
+				<h4 class="book-quote">"כשאנחנו מדברים על מקריות, אנחנו פשוט מודים שאיננו רואים את התבנית"</h4>
+				<h4 class="lead-text">
+					<span class="fixed-bold">הפרוזדור</span>
+					מדלג בקלילות נעימה בין עבר ועתיד, תודעה וחלום, ומפגיש אותנו עם דמויות שחייהן שזורים במארג של גורל וייעוד
+				</h4>
 			</div>
-		</section>
-	</Container>
+		</Container>
+	</section>
+
+	<TwoColumnTextSection>
+		<div slot="column-1-body">
+			<div class="icon-flip-horizontal">
+				<Image src={QuotationMark} alt="Quote" width="24" height="24" />
+			</div>
+			<p>
+				לוקשינסקי מציג חידוש משמעותי בנוף <strong>המדע הבדיוני הישראלי</strong>. בניגוד למגמה הרווחת בז'אנר המקומי, המתמקדת בעתידים קודרים וביקורת חברתית, <span style="font-weight: bold; font-family: var(--theme-font-family-sans)">הפרוזדור</span> מעמיק בשאלות פילוסופיות יסודיות על מהות הקיום האנושי. היצירה חומקת מהגדרות פשטניות – היא משלבת אלמנטים מהקבלה, הפיזיקה המודרנית והפסיכולוגיה הטרנספרסונלית, תוך שמירה על עלילה מרתקת ודמויות עשירות. הגישה הפוסט-הומניסטית של לוקשינסקי אינה נשענת על שכלולים טכנולוגיים בלבד, אלא מציעה התפתחות תודעתית והשבת ממד רוחני שהתרחק מהאנושות המודרנית.
+			</p>
+			<div class="icon-flip-horizontal">
+				<Image src={QuotationMark} alt="Quote" width="24" height="24" />
+			</div>
+			<h6>יעקוב קודי, עצמאי</h6>
+		</div>
+
+		<div slot="column-2-body">
+			<div class="icon-flip-horizontal">
+				<Image src={QuotationMark} alt="Quote" width="24" height="24" />
+			</div>
+			<p>
+				<span style="font-weight: bold; font-family: var(--theme-font-family-sans)">הפרוזדור</span>
+				עושה משהו נדיר <strong>במדע הבדיוני הישראלי</strong> – הוא מתייחס ברצינות לפיזיקה המודרנית. בניגוד לספרים אחרים, שמעוותים מושגים מדעיים לצורך העלילה, לוקשינסקי יצר עולם שבו תיאוריות על ממדים מקבילים ותודעה קוונטית מוצגות באופן מדויק. הקשר שהוא יוצר בין פיזיקה לבין תורות מיסטיות אינו דמיוני - הוא מבוסס על הדמיון המפתיע שמתגלה בין שני התחומים. הספר משלב מחקר מעמיק בתוך סיפור מתח מרתק.
+			</p>
+			<div class="icon-flip-horizontal">
+				<Image src={QuotationMark} alt="Quote" width="24" height="24" />
+			</div>
+			<h6>יוכי שפינר, פנסיונרית הייטק</h6>
+		</div>
+	</TwoColumnTextSection>
+
+	<TextAndImageHero>
+		<div slot="text-container">
+			<h4 class="book-quote">
+				"יש אנשים בעולם שזכו להגיע לחיבורים אלה מבלי להשתמש בצוללת החלומות, והם מכונים בשמות רבים בכל אחת מן הדתות השונות. בדת היהודית לדוגמה, הם נקראים מקובלים"
+			</h4>
+			<h4>
+				בין דפי הספר מתגלה
+				<span class="fixed-bold">פילוסופיה עמוקה:</span>
+				החיים כחוט באריג הנפרש בין זמן, מרחב ותודעה—מחבר בין ערות לחלום
+			</h4>
+
+
+		</div>
+		<div slot="btns-container">
+			<Button href="/theme/get-started" customIcon>הצטרפו למסע הספרותי<Fragment slot="icon">
+				<Icon name="ic:baseline-arrow-back-ios" />
+			</Fragment></Button
+			>
+		</div>
+		<picture slot="image-container">
+			<img
+				src="/assets/ProzdorCover.png"
+				alt="כריכת הספר"
+				id="home-hero-image2"
+			/>
+		</picture>
+	</TextAndImageHero>
+
+	<ThreeColumnTextSection>
+		<div slot="column-1-body">
+			<div class="icon-flip-horizontal">
+				<Image src={QuotationMark} alt="Quote" width="24" height="24" />
+			</div>
+			<p>
+				<span style="font-weight: bold; font-family: var(--theme-font-family-sans)">הפרוזדור</span> הוא יצירה מרתקת שמחברת בצורה מיומנת בין <strong>מדע בדיוני</strong>, פילוסופיה והרהורים רוחניים. המחבר יוצר עולם עשיר ורב-שכבתי, שבו טכנולוגיות העתיד שזורות בידע קדום, וסיפורי הגיבורים משקפים שינויים גלובליים וחיפוש אחר משמעות החיים.
+			</p>
+			<div class="icon-flip-horizontal">
+				<Image src={QuotationMark} alt="Quote" width="24" height="24" />
+			</div>
+			<h6>ד"ר חיים ויטאל</h6>
+		</div>
+
+		<div slot="column-2-body">
+			<div class="icon-flip-horizontal">
+				<Image src={QuotationMark} alt="Quote" width="24" height="24" />
+			</div>
+			<p>
+				הקסם ב<span style="font-weight: bold; font-family: var(--theme-font-family-sans)">הפרוזדור</span> הוא ביכולתו לפעול בכמה רבדים במקביל. בפשטות, זהו סיפור מתח ספקולטיבי סוחף; בעומק יותר, זוהי מדיטציה פילוסופית על הקשר בין זהות, זיכרון ותודעה קולקטיבית. לוקשינסקי מרשים במיוחד בתיאור חוויות חוץ-גופיות ומצבי תודעה אלטרנטיביים, כאילו חווה אותם בעצמו. מעבר לעלילה, יש כאן אמירה על חברה שאיבדה את החיבור למסתורין לטובת נוחות ובריחה לעולמות וירטואליים - תחזית מטרידה במיוחד בעידן המטאוורס והבינה המלאכותית.
+			</p>
+			<div class="icon-flip-horizontal">
+				<Image src={QuotationMark} alt="Quote" width="24" height="24" />
+			</div>
+			<h6>גיל זהבי, מעמד ועורך ספרותי</h6>
+		</div>
+
+		<div slot="column-3-body">
+			<div class="icon-flip-horizontal">
+				<Image src={QuotationMark} alt="Quote" width="24" height="24" />
+			</div>
+			<p>
+				<span style="font-weight: bold; font-family: var(--theme-font-family-sans)">הפרוזדור</span> - ספר מרתק ומעורר למחשבה. מומלץ!
+			</p>
+			<div class="icon-flip-horizontal">
+				<Image src={QuotationMark} alt="Quote" width="24" height="24" />
+			</div>
+			<h6>עו"ד גדי וויספלד</h6>
+		</div>
+
+	</ThreeColumnTextSection>
+
+	<YouTubeEmbedSection url="https://www.youtube.com/watch?v=cbYr75_R15M" rounded
+	/>
+
+
+	<CtaCardSection
+		background="var(--theme-surface-2)"
+		color="var(--theme-on-surface-2)"
+	>
+		<div style="position: relative; padding: 10px 30px; margin: 20px 0; direction: rtl; text-align: right;">
+			<div class="icon-flip-horizontal" style="position: absolute; top: 0; right: 0;">
+				<Image src={QuotationMark} alt="Quote" width="24" height="24" />
+			</div>
+			<p style="margin: 0; position: relative;">
+				כל פרק ב<span style="font-weight: bold; font-family: var(--theme-font-family-sans)">הפרוזדור</span> מעמיק את הקורא בהיבט נוסף של חקר התודעה, הזיכרון והצמיחה הרוחנית. הספר מעורר מחשבה על עתיד האנושות, על השפעת הטכנולוגיה על חיינו ותודעתנו, ועל חשיבות ההתפתחות הרוחנית בעולם טכנולוגי. למי שמתעניין בשאלות של קיום ותודעה — <span style="font-weight: bold; font-family: var(--theme-font-family-sans)">הפרוזדור</span> מציע נקודת מבט ייחודית על המפגש בין מדע לרוח.
+			</p>
+			<div style="position: absolute; bottom: 0; left: 0;">
+				<Image src={QuotationMark} alt="Quote" width="24" height="24" />
+			</div>
+			<h6 style="margin-top: 10px; text-align: left;">ד"ר חיים וילוי, חוקר שלום בעולם, המכון להתפתחות מאוחדת של האנושות</h6>
+		</div>
+
+			<Button href="/theme/get-started" customIcon>הצטרפו למסע הספרותי<Fragment slot="icon">
+				<Icon name="ic:baseline-arrow-back-ios" />
+			</Fragment></Button
+			>
+
+	</CtaCardSection>
 </Layout>
 
 <style>
-	.feature-card__section {
-		margin: var(--section-margin) auto;
-	}
-	.feature-card__grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: var(--theme-grid-gap);
-	}
-	@media (max-width: 768px) {
-		.feature-card__grid {
-			grid-template-columns: 1fr;
-		}
-	}
+    .fixed-bold {
+        font-weight: bold;
+    }
+
+    .icon-flip-horizontal {
+        display: inline-block;
+        transform: scaleX(-1) scaleY(-1);
+    }
+
+    .book-quote {
+        text-align: center;
+        font-style: italic;
+        font-family: var(--theme-font-family-serif);
+        letter-spacing: 0.03em;
+    }
+
+    /* Pulse animations */
+    .pulse-animation {
+        animation: pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        animation-delay: 0.75s; /* Base delay */
+    }
+
+    /* Additional delays for subsequent elements */
+    .delayed-1 {
+        animation-delay: 1.5s; /* 0.75s + 0.75s */
+    }
+
+    .delayed-2 {
+        animation-delay: 2.25s; /* 1.5s + 0.75s */
+    }
+
+    /* Define the keyframes for the pulse animation */
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.5;
+        }
+    }
+
+    .promo-text__section {
+        margin: calc(var(--section-margin) * 2) auto;
+        padding: 3rem;
+        background-color: var(--theme-surface-1);
+    }
+
+    .lead-text {
+        text-align: center;
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .promo-body {
+        text-align: right;
+        font-size: 1.1rem;
+        margin: auto auto;
+        max-width: 80ch;
+    }
 </style>

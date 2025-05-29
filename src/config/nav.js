@@ -1,18 +1,18 @@
 export const nav = [
 	{
-		title: 'Home',
+		title: 'הפרוזדור',
 		slug: '/',
 	},
 	{
-		title: 'Blog',
+		title: 'בלוג',
 		slug: '/blog',
 	},
 	{
-		title: 'About',
-		slug: '/company/about',
+		title: 'אודות',
+		slug: '/about',
 	},
 	{
-		title: 'Contact',
-		slug: '/company/contact',
+		title: 'צור קשר',
+		slug: '/contact',
 	},
 ];

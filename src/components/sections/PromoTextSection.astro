@@ -1,0 +1,35 @@
+---
+import Container from '../core/Container.astro';
+const {leadText, promoText} = Astro.props;
+---
+
+<section class="promo-text__section">
+	<Container narrow>
+		<div class="promo-content" data-aos="fade-up">
+			<h3 class="lead-text">{leadText}</h3>
+			<h4 class="promo-body">{promoText}</h4>
+		</div>
+	</Container>
+</section>
+
+<style>
+    .promo-text__section {
+        margin: calc(var(--section-margin) * 2) auto;
+        padding: 3rem;
+        background-color: var(--theme-surface-1);
+    }
+
+    .lead-text {
+        text-align: center;
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .promo-body {
+        text-align: right;
+        font-size: 1.1rem;
+        margin: auto auto;
+        max-width: 80ch;
+    }
+</style>
+
