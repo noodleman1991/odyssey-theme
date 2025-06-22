@@ -1,14 +1,14 @@
 export const footerSocials = [
-  {
-    name: 'Twitter',
-    url: 'https://twitter.com/jaydanurwin',
-    icon: "mdi:twitter",
-  },
-  {
-    name: 'Youtube',
-    url: 'https://youtube.com/@jaydanurwin',
-    icon: "mdi:youtube",
-  },
+  // {
+  //   name: 'Twitter',
+  //   url: 'https://twitter.com/jaydanurwin',
+  //   icon: "mdi:twitter",
+  // },
+  // {
+  //   name: 'Youtube',
+  //   url: 'https://youtube.com/@jaydanurwin',
+  //   icon: "mdi:youtube",
+  // },
 ]
 
 export const footerLists = [
@@ -18,10 +18,10 @@ export const footerLists = [
 				title: 'עמוד הבית',
 				slug: '/',
 			},
-      {
-        title: 'בלוג',
-        slug: '/blog',
-      },
+      // {
+      //   title: 'בלוג',
+      //   slug: '/blog',
+      // },
       {
         title: 'אודות',
         slug: '/about',
@@ -32,11 +32,11 @@ export const footerLists = [
 		items: [
 			{
 				title: 'הזמנת הספר',
-				slug: '/about',
+				slug: '/contact',
 			},
 			{
 				title: 'הזמנת הרצאות וסדנאות',
-				slug: '/contact',
+				slug: '/workshops',
 			},
 		],
 	},

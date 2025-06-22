@@ -7,7 +7,7 @@ export interface Props {
 
 ---
 
-<form name="Contact Form" method="POST" action="https://formspree.io/f/mzzganvj">
+<form name="Workshop Form" method="POST" action="https://formspree.io/f/mjkrenav">
 	<FormInput
 		type="text"
 		label="שם מלא"
@@ -30,13 +30,17 @@ export interface Props {
 		placeholder="example@email.com"
 		required
 	/>
+	<FormInput
+		type="text"
+		label="חברה/ארגון"
+		name="organization"
+	/>
 	<FormTextarea
-		label="כתובת למשלוח (אופציונלי)"
-		name="address"
-		placeholder="רחוב, מספר בית, עיר, מיקוד"
+		label="פרטים נוספים"
+		name="details"
 	/>
 	<!-- Hidden fields for Formspree -->
-	<input type="hidden" name="_subject" value="פנייה חדשה מטופס הזמנת ספר" />
+	<input type="hidden" name="_subject" value="פנייה חדשה מטופס התעניינות בסדנה" />
 	<input type="text" name="_gotcha" style="display:none" />
 	<Button>שלחו</Button>
 </form>

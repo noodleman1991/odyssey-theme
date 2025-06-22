@@ -1,11 +1,11 @@
 ---
-import ContactForm from '../components/forms/ContactForm.astro';
+import WorkshopForm from '../components/forms/WorkshopForm.astro';
 import Layout from '../layouts/Page.astro';
 import { Container } from '@components/odyssey-theme';
 
 const seo = {
-	title: 'הזמנת הספר | הצטרפו למסע הספרותי',
-	description: 'עמוד יצירת קשר',
+	title: 'הרצאות וסדנאות | הצטרפו למסע הספרותי',
+	description: 'עמוד הזמנת הרצאה/סדנה',
 };
 ---
 
@@ -13,22 +13,20 @@ const seo = {
 	<Container>
 		<section class="contact-hero__section">
 			<div class="contact-hero__text-section">
-				<h1>להזמנת הספר השאירו פרטים</h1>
+				<h1>בין מדע לנסתר: הרצאה וסדנה</h1>
 				<p>
-					השאירו פרטים בטופס שמשמאל וניצור איתכם קשר להשלמת הזמנה טלפונית ומשלוח
-					<span style="text-decoration: underline">חינם</span>
-					בארץ. הפרוזדור יוצא לאור בהוצאה עצמאית. הספר זמין בחנויות ספרים נבחרות ובירידים.
+					הפרוזדור לוקח את הקורא למסע בין תיאוריות מדעיות עכשויות לתפיסת הנסתר. מתעניינים בהרצאה או סדנה עם הסופר מאיר לוקשינסקי? השאירו פרטים בטופס שמשמאל ונחזור אליכם עם פרטים נוספים לגבי הרצאות וסדנאות הפרוזדור
 				</p>
 				<div>
 					<div style="display: flex; align-items: center; gap: 0.5rem;">
-						<h5>מחיר הספר 79 ש״ח</h5>
+						<h5>הרצאות וסדנאות לארגונים וועדי עובדים</h5>
 						<p>•</p>
-						<h5>משלוח <span style="text-decoration: underline">חינם</span> בארץ</h5>
+						<h5>בכל רחבי הארץ</h5>
 					</div>
 				</div>
 			</div>
 			<div class="col-2__container">
-				<ContactForm />
+				<WorkshopForm />
 			</div>
 		</section>
 	</Container>
