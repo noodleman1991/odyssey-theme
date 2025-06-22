@@ -12,7 +12,7 @@ export const nav = [
 		slug: '/about',
 	},
   {
-    title: 'הזמנת הרצאות וסדנאות',
+    title: 'הרצאות וסדנאות',
     slug: '/workshops',
   },
 ];
