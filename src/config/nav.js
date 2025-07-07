@@ -12,7 +12,7 @@ export const nav = [
 		slug: '/about',
 	},
   {
-    title: 'הרצאות וסדנאות',
+    title: 'הרצאת We',
     slug: '/workshops',
   },
 ];
