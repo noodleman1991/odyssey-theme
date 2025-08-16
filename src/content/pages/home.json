@@ -1,0 +1,18 @@
+{
+  "title": "Home",
+  "description": "Welkom bij Boerengroep",
+  "lang": "nl",
+  "blocks": [
+    {
+      "_template": "hero",
+      "heading": "Welkom bij Boerengroep",
+      "subheading": "Connecting students with sustainable agriculture",
+      "text": "<p>Join us in creating a sustainable future for agriculture</p>",
+      "cta": {
+        "text": "Lees meer",
+        "href": "/about"
+      },
+      "layout": "centered"
+    }
+  ]
+}

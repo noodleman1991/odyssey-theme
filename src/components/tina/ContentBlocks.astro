@@ -1,0 +1,70 @@
+---
+import type { ContentBlock } from '@/types';
+import { Container, TextSection, Button } from '@components/odyssey-theme';
+import { isRTL } from '@/utils/i18n';
+
+interface Props {
+  blocks: ContentBlock[];
+  lang?: 'nl' | 'en' | 'ar';
+}
+
+const { blocks = [], lang = 'nl' } = Astro.props as Props;
+const rtl = isRTL(lang);
+---
+
+<div dir={rtl ? 'rtl' : 'ltr'}>
+  {blocks?.map((block) => {
+    switch (block._template) {
+      case 'hero':
+        return (
+          <Container>
+            <section class="hero-section">
+              {block.heading && <h1>{block.heading}</h1>}
+              {block.subheading && <p class="subtitle">{block.subheading}</p>}
+              {block.text && <div set:html={block.text} />}
+              {block.cta && (
+                <Button href={block.cta.href}>{block.cta.text}</Button>
+              )}
+            </section>
+          </Container>
+        );
+      
+      case 'textBlock':
+        return (
+          <TextSection narrow={block.narrow}>
+            {block.heading && <h2>{block.heading}</h2>}
+            <div set:html={block.content} class={`text-${block.alignment || 'left'}`} />
+          </TextSection>
+        );
+      
+      default:
+        console.warn(`Unknown block type: ${block._template}`);
+        return null;
+    }
+  })}
+</div>
+
+<style>
+  .hero-section {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+
+  .subtitle {
+    font-size: var(--font-size-lg);
+    margin-bottom: 2rem;
+  }
+
+  .text-left { text-align: left; }
+  .text-center { text-align: center; }
+  .text-right { text-align: right; }
+  .text-justify { text-align: justify; }
+
+  [dir="rtl"] .text-left { text-align: right; }
+  [dir="rtl"] .text-right { text-align: left; }
+</style>

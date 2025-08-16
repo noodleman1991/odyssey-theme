@@ -3,10 +3,45 @@ import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
 import icon from "astro-icon";
 import lit from "@astrojs/lit";
+import react from "@astrojs/react";
 
-// https://astro.build/config
 export default defineConfig({
-  site: 'https://odyssey-theme.sapling.supply/', // Your public domain, e.g.: https://my-site.dev/. Used to generate sitemaps and canonical URLs.
-	sitemap: true, // Generate sitemap (set to "false" to disable)
-  integrations: [sitemap(), mdx(), lit(), icon()], // Add renderers to the config
+  site: 'https://boerengroep.nl/',
+  sitemap: true,
+  
+  i18n: {
+    defaultLocale: 'nl',
+    locales: ['nl', 'en', 'ar'],
+    routing: {
+      prefixDefaultLocale: false,
+      redirectToDefaultLocale: true,
+    },
+    fallback: {
+      en: 'nl',
+      ar: 'en',
+    },
+  },
+  
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: 'nl',
+        locales: {
+          nl: 'nl-NL',
+          en: 'en-US',
+          ar: 'ar-SA',
+        },
+      },
+    }),
+    mdx(),
+    lit(),
+    icon(),
+    react(),
+  ],
+  
+  vite: {
+    ssr: {
+      external: ['tinacms'],
+    },
+  },
 });
