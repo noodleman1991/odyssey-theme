@@ -231,8 +231,9 @@ var activitiesCollection = {
   ]
 };
 var config_default = defineConfig({
-  branch: process.env.HEAD || process.env.VERCEL_GIT_COMMIT_REF || "main",
-  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID,
+  // Use environment variables for authentication
+  branch: process.env.TINA_BRANCH || "main",
+  clientId: process.env.TINA_PUBLIC_CLIENT_ID,
   token: process.env.TINA_TOKEN,
   build: {
     outputFolder: "admin",
@@ -240,7 +241,7 @@ var config_default = defineConfig({
   },
   media: {
     tina: {
-      mediaRoot: "assets",
+      mediaRoot: "uploads",
       publicFolder: "public"
     }
   },
