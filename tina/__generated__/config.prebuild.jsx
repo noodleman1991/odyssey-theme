@@ -1,6 +1,147 @@
-// tina/config.ts
+// tina/config.tsx
 import { defineConfig } from "tinacms";
-var pageCollection = {
+
+// tina/blocks/hero.ts
+var heroBlockSchema = {
+  name: "hero",
+  label: "Hero Section",
+  ui: {
+    previewSrc: "/blocks/hero.png",
+    defaultItem: {
+      heading: "Welcome to Our Site",
+      subheading: "Your journey starts here",
+      layout: "centered"
+    }
+  },
+  fields: [
+    {
+      type: "string",
+      name: "heading",
+      label: "Heading"
+    },
+    {
+      type: "string",
+      name: "subheading",
+      label: "Subheading"
+    },
+    {
+      type: "rich-text",
+      name: "text",
+      label: "Text"
+    },
+    {
+      type: "image",
+      name: "image",
+      label: "Hero Image"
+    },
+    {
+      type: "object",
+      name: "cta",
+      label: "Call to Action",
+      fields: [
+        {
+          type: "string",
+          name: "text",
+          label: "Button Text"
+        },
+        {
+          type: "string",
+          name: "href",
+          label: "Link"
+        }
+      ]
+    },
+    {
+      type: "string",
+      name: "layout",
+      label: "Layout",
+      options: ["text-left", "text-right", "centered", "full-width"]
+    }
+  ]
+};
+
+// tina/blocks/text.ts
+var textBlockSchema = {
+  name: "textBlock",
+  label: "Text Block",
+  ui: {
+    previewSrc: "/blocks/text.png"
+  },
+  fields: [
+    {
+      type: "string",
+      name: "heading",
+      label: "Heading"
+    },
+    {
+      type: "rich-text",
+      name: "content",
+      label: "Content",
+      isBody: true
+    },
+    {
+      type: "string",
+      name: "alignment",
+      label: "Text Alignment",
+      options: ["left", "center", "right", "justify"]
+    },
+    {
+      type: "boolean",
+      name: "narrow",
+      label: "Narrow Container"
+    }
+  ]
+};
+
+// tina/blocks/image-text.ts
+var imageTextBlockSchema = {
+  name: "textImage",
+  label: "Text & Image",
+  ui: {
+    previewSrc: "/blocks/image-text.png"
+  },
+  fields: [
+    {
+      type: "string",
+      name: "heading",
+      label: "Heading"
+    },
+    {
+      type: "string",
+      name: "subheading",
+      label: "Subheading"
+    },
+    {
+      type: "rich-text",
+      name: "text",
+      label: "Text Content"
+    },
+    {
+      type: "image",
+      name: "image",
+      label: "Image"
+    },
+    {
+      type: "string",
+      name: "imageAlt",
+      label: "Image Alt Text"
+    },
+    {
+      type: "string",
+      name: "layout",
+      label: "Layout",
+      options: ["image-left", "image-right"]
+    },
+    {
+      type: "boolean",
+      name: "sticky",
+      label: "Sticky Image on Scroll"
+    }
+  ]
+};
+
+// tina/config.tsx
+var PageCollection = {
   name: "page",
   label: "Pages",
   path: "src/content/pages",
@@ -17,7 +158,7 @@ var pageCollection = {
     {
       type: "string",
       name: "title",
-      label: "Title",
+      label: "Page Title",
       isTitle: true,
       required: true
     },
@@ -42,69 +183,14 @@ var pageCollection = {
       name: "blocks",
       label: "Content Blocks",
       templates: [
-        {
-          name: "hero",
-          label: "Hero Section",
-          fields: [
-            { type: "string", name: "heading", label: "Heading" },
-            { type: "string", name: "subheading", label: "Subheading" },
-            { type: "rich-text", name: "text", label: "Text" },
-            { type: "image", name: "image", label: "Hero Image" },
-            {
-              type: "object",
-              name: "cta",
-              label: "Call to Action",
-              fields: [
-                { type: "string", name: "text", label: "Button Text" },
-                { type: "string", name: "href", label: "Link" }
-              ]
-            },
-            {
-              type: "string",
-              name: "layout",
-              label: "Layout",
-              options: ["text-left", "text-right", "centered", "full-width"]
-            }
-          ]
-        },
-        {
-          name: "textBlock",
-          label: "Text Block",
-          fields: [
-            { type: "string", name: "heading", label: "Heading" },
-            { type: "rich-text", name: "content", label: "Content", isBody: true },
-            {
-              type: "string",
-              name: "alignment",
-              label: "Text Alignment",
-              options: ["left", "center", "right", "justify"]
-            },
-            { type: "boolean", name: "narrow", label: "Narrow Container" }
-          ]
-        },
-        {
-          name: "textImage",
-          label: "Text & Image",
-          fields: [
-            { type: "string", name: "heading", label: "Heading" },
-            { type: "string", name: "subheading", label: "Subheading" },
-            { type: "rich-text", name: "text", label: "Text Content" },
-            { type: "image", name: "image", label: "Image" },
-            { type: "string", name: "imageAlt", label: "Image Alt Text" },
-            {
-              type: "string",
-              name: "layout",
-              label: "Layout",
-              options: ["image-left", "image-right"]
-            },
-            { type: "boolean", name: "sticky", label: "Sticky Image on Scroll" }
-          ]
-        }
+        heroBlockSchema,
+        textBlockSchema,
+        imageTextBlockSchema
       ]
     }
   ]
 };
-var blogCollection = {
+var BlogCollection = {
   name: "blog",
   label: "Blog Posts",
   path: "src/content/blog",
@@ -124,7 +210,9 @@ var blogCollection = {
       type: "string",
       name: "description",
       label: "Description",
-      ui: { component: "textarea" }
+      ui: {
+        component: "textarea"
+      }
     },
     {
       type: "datetime",
@@ -141,7 +229,9 @@ var blogCollection = {
       type: "string",
       name: "excerpt",
       label: "Excerpt",
-      ui: { component: "textarea" }
+      ui: {
+        component: "textarea"
+      }
     },
     {
       type: "string",
@@ -170,11 +260,14 @@ var blogCollection = {
     }
   ]
 };
-var activitiesCollection = {
+var ActivitiesCollection = {
   name: "activities",
   label: "Activities",
   path: "src/content/activities",
   format: "mdx",
+  ui: {
+    router: ({ document }) => `/activities/${document._sys.filename}`
+  },
   fields: [
     {
       type: "string",
@@ -203,7 +296,9 @@ var activitiesCollection = {
       type: "string",
       name: "description",
       label: "Short Description",
-      ui: { component: "textarea" }
+      ui: {
+        component: "textarea"
+      }
     },
     {
       type: "image",
@@ -254,9 +349,12 @@ var config_default = defineConfig({
     maxSearchIndexFieldLength: 100
   },
   schema: {
-    collections: [pageCollection, blogCollection, activitiesCollection]
+    collections: [PageCollection, BlogCollection, ActivitiesCollection]
   }
 });
 export {
+  ActivitiesCollection,
+  BlogCollection,
+  PageCollection,
   config_default as default
 };

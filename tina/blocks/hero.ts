@@ -11,78 +11,47 @@ export const heroBlockSchema = {
 	},
 	fields: [
 		{
-			type: "string",
+			type: "string" as const,
 			name: "heading",
-			label: "Main Heading",
-			required: true,
-			ui: {
-				component: "text",
-				description: "Large heading text",
-			},
+			label: "Heading",
 		},
 		{
-			type: "string",
+			type: "string" as const,
 			name: "subheading",
 			label: "Subheading",
-			ui: {
-				component: "text",
-			},
 		},
 		{
-			type: "rich-text",
-			name: "content",
-			label: "Content",
-			ui: {
-				description: "Additional content below the heading",
-			},
+			type: "rich-text" as const,
+			name: "text",
+			label: "Text",
 		},
 		{
-			type: "image",
-			name: "backgroundImage",
-			label: "Background Image",
+			type: "image" as const,
+			name: "image",
+			label: "Hero Image",
 		},
 		{
-			type: "object",
+			type: "object" as const,
 			name: "cta",
 			label: "Call to Action",
 			fields: [
 				{
-					type: "string",
+					type: "string" as const,
 					name: "text",
 					label: "Button Text",
 				},
 				{
-					type: "string",
+					type: "string" as const,
 					name: "href",
 					label: "Link",
-					ui: {
-						description: "Internal link (e.g., /about) or external URL",
-					},
-				},
-				{
-					type: "string",
-					name: "style",
-					label: "Button Style",
-					options: ["primary", "secondary", "outline"],
-					ui: {
-						defaultValue: "primary",
-					},
 				},
 			],
 		},
 		{
-			type: "string",
+			type: "string" as const,
 			name: "layout",
-			label: "Layout Style",
-			options: [
-				{ value: "centered", label: "Centered" },
-				{ value: "left", label: "Left Aligned" },
-				{ value: "right", label: "Right Aligned" },
-				{ value: "split", label: "Split Layout" },
-			],
-			ui: {
-				defaultValue: "centered",
-			},
+			label: "Layout",
+			options: ["text-left", "text-right", "centered", "full-width"],
 		},
 	],
 };

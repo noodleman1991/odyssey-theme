@@ -1,55 +1,45 @@
 export const imageTextBlockSchema = {
-	name: "imageText",
-	label: "Image + Text",
+	name: "textImage",
+	label: "Text & Image",
 	ui: {
 		previewSrc: "/blocks/image-text.png",
 	},
 	fields: [
 		{
-			type: "string",
+			type: "string" as const,
 			name: "heading",
 			label: "Heading",
 		},
 		{
-			type: "rich-text",
-			name: "content",
-			label: "Content",
+			type: "string" as const,
+			name: "subheading",
+			label: "Subheading",
 		},
 		{
-			type: "image",
+			type: "rich-text" as const,
+			name: "text",
+			label: "Text Content",
+		},
+		{
+			type: "image" as const,
 			name: "image",
 			label: "Image",
-			required: true,
 		},
 		{
-			type: "string",
+			type: "string" as const,
 			name: "imageAlt",
 			label: "Image Alt Text",
-			ui: {
-				description: "Describe the image for accessibility",
-			},
 		},
 		{
-			type: "string",
+			type: "string" as const,
 			name: "layout",
 			label: "Layout",
-			options: [
-				{ value: "image-left", label: "Image Left" },
-				{ value: "image-right", label: "Image Right" },
-				{ value: "image-top", label: "Image Top" },
-				{ value: "image-bottom", label: "Image Bottom" },
-			],
-			ui: {
-				defaultValue: "image-right", // Better for RTL
-			},
+			options: ["image-left", "image-right"],
 		},
 		{
-			type: "boolean",
+			type: "boolean" as const,
 			name: "sticky",
-			label: "Sticky Image",
-			ui: {
-				description: "Make image stick while scrolling through content",
-			},
+			label: "Sticky Image on Scroll",
 		},
 	],
 };

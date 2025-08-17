@@ -1,58 +1,115 @@
-import React from 'react';
-import { tinaField, useTina } from "tinacms/dist/react";
-import type { PageQuery, PageQueryVariables } from '../__generated__/types';
-import { TinaMarkdown } from 'tinacms/dist/rich-text';
-import { HeroBlock } from './blocks/HeroBlock';
-import { TextBlock } from './blocks/TextBlock';
-import { ImageTextBlock } from './blocks/ImageTextBlock';
-import { CTABlock } from './blocks/CTABlock';
+// import { defineCollection, z } from "astro:content";
+// import client from "../../tina/__generated__/client";
+//
+// // Helper type guard for GraphQL nodes
+// function notNull<T>(value: T | null | undefined): value is T {
+// 	return value !== null && value !== undefined;
+// }
+//
+// // Blog collection
+// const blog = defineCollection({
+// 	loader: async () => {
+// 		const postsResponse = await client.queries.blogConnection();
+// 		const edges = postsResponse.data.blogConnection.edges ?? [];
+//
+// 		return edges
+// 			.map((edge) => edge?.node)
+// 			.filter(notNull)
+// 			.map((node) => {
+// 				return {
+// 					...node,
+// 					id: node._sys.relativePath.replace(/\.mdx?$/, ""),
+// 					tinaInfo: node._sys,
+// 					// Map Tina field names to Astro expected names
+// 					pubDate: node.publishDate, // Let Zod coerce this to Date
+// 					heroImage: node.featuredImage, // Let Zod handle nullish values
+// 				};
+// 			});
+// 	},
+// 	schema: z.object({
+// 		tinaInfo: z.object({
+// 			filename: z.string(),
+// 			basename: z.string(),
+// 			path: z.string(),
+// 			relativePath: z.string(),
+// 		}),
+// 		title: z.string(),
+// 		description: z.string().optional(),
+// 		pubDate: z.coerce.date(),
+// 		updatedDate: z.coerce.date().optional(), // Will be undefined if not in Tina schema
+// 		heroImage: z.string().nullish(),
+// 		excerpt: z.string().optional(),
+// 		tags: z.array(z.string()).optional(),
+// 		authors: z.array(z.string()).optional(),
+// 		lang: z.string(),
+// 		body: z.any(),
+// 	}),
+// });
+//
+// // Page collection
+// const page = defineCollection({
+// 	loader: async () => {
+// 		const pagesResponse = await client.queries.pageConnection();
+// 		const edges = pagesResponse.data.pageConnection.edges ?? [];
+//
+// 		return edges
+// 			.map((edge) => edge?.node)
+// 			.filter(notNull)
+// 			.map((node) => ({
+// 				...node,
+// 				id: node._sys.relativePath.replace(/\.mdx?$/, ""),
+// 				tinaInfo: node._sys,
+// 			}));
+// 	},
+// 	schema: z.object({
+// 		tinaInfo: z.object({
+// 			filename: z.string(),
+// 			basename: z.string(),
+// 			path: z.string(),
+// 			relativePath: z.string(),
+// 		}),
+// 		title: z.string(),
+// 		description: z.string().optional(),
+// 		lang: z.string(),
+// 		blocks: z.array(z.any()).optional(),
+// 	}),
+// });
+//
+// // Activities collection (from your Tina schema)
+// const activities = defineCollection({
+// 	loader: async () => {
+// 		const activitiesResponse = await client.queries.activitiesConnection();
+// 		const edges = activitiesResponse.data.activitiesConnection.edges ?? [];
+//
+// 		return edges
+// 			.map((edge) => edge?.node)
+// 			.filter(notNull)
+// 			.map((node) => ({
+// 				...node,
+// 				id: node._sys.relativePath.replace(/\.mdx?$/, ""),
+// 				tinaInfo: node._sys,
+// 				activityDate: node.date, // Map to more Astro-friendly name
+// 			}));
+// 	},
+// 	schema: z.object({
+// 		tinaInfo: z.object({
+// 			filename: z.string(),
+// 			basename: z.string(),
+// 			path: z.string(),
+// 			relativePath: z.string(),
+// 		}),
+// 		title: z.string(),
+// 		type: z.string().optional(),
+// 		date: z.coerce.date(),
+// 		activityDate: z.coerce.date(), // Mapped field
+// 		location: z.string().optional(),
+// 		description: z.string().optional(),
+// 		image: z.string().optional(),
+// 		upcoming: z.boolean().optional(),
+// 		lang: z.string(),
+// 		body: z.any(),
+// 	}),
+// });
+//
+// export const collections = { blog, page, activities };
 
-type Props = {
-	variables: PageQueryVariables;
-	data: PageQuery;
-	query: string;
-}
-
-const componentMap = {
-	hero: HeroBlock,
-	textBlock: TextBlock,
-	imageText: ImageTextBlock,
-	cta: CTABlock,
-};
-
-export default function VisualPage(props: Props) {
-	const { data } = useTina({
-		query: props.query,
-		variables: props.variables,
-		data: props.data,
-	});
-
-	const page = data.page;
-	const isRTL = page.lang === 'he' || page.lang === 'ar';
-
-	return (
-		<div
-			dir={isRTL ? 'rtl' : 'ltr'}
-			className={`page-content ${isRTL ? 'rtl' : 'ltr'}`}
-			data-tina-field={tinaField(page)}
-		>
-			{page.blocks?.map((block, index) => {
-				const Component = componentMap[block.__typename?.replace('PageBlocks', '').toLowerCase()];
-
-				if (!Component) {
-					console.warn(`No component found for block type: ${block.__typename}`);
-					return null;
-				}
-
-				return (
-					<Component
-						key={index}
-						data={block}
-						tinaField={tinaField(page, "blocks", index)}
-						isRTL={isRTL}
-					/>
-				);
-			})}
-		</div>
-	);
-}

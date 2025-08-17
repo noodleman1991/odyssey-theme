@@ -2,8 +2,8 @@ import type { Collection } from "tinacms";
 import { heroBlockSchema } from "../blocks/hero";
 import { textBlockSchema } from "../blocks/text";
 import { imageTextBlockSchema } from "../blocks/image-text";
-import { ctaBlockSchema } from "../blocks/cta";
-import { testimonialsBlockSchema } from "../blocks/testimonials";
+// import { ctaBlockSchema } from "../blocks/cta";
+//import { testimonialsBlockSchema } from "../blocks/testimonials";
 
 export const PageCollection: Collection = {
 	name: "page",
@@ -20,7 +20,7 @@ export const PageCollection: Collection = {
 		},
 		beforeSubmit: async ({ form, cms, values }) => {
 			// Custom validation for Hebrew content
-			if (!values.title || values.title.trim() === '') {
+			if (!values.title) { //|| values.title.trim() === ''todo: fix type
 				throw new Error('Title is required');
 			}
 		},
@@ -85,8 +85,6 @@ export const PageCollection: Collection = {
 				heroBlockSchema,
 				textBlockSchema,
 				imageTextBlockSchema,
-				ctaBlockSchema,
-				testimonialsBlockSchema,
 			],
 		},
 	],

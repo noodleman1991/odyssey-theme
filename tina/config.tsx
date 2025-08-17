@@ -1,69 +1,225 @@
 import { defineConfig } from "tinacms";
-import { BlogCollection } from "../collections/blog";
-import { PageCollection } from "./collections/page";
-import { GlobalConfigCollection } from "./collections/global-config";
-import { ComponentsCollection } from "./collections/components";
+import type { Collection } from "tinacms";
+import { heroBlockSchema } from "../tina/blocks/hero";
+import { textBlockSchema } from "../tina/blocks/text";
+import { imageTextBlockSchema } from "../tina/blocks/image-text";
 
-const branch =
-	process.env.GITHUB_BRANCH ||
-	process.env.VERCEL_GIT_COMMIT_REF ||
-	process.env.HEAD ||
-	"main";
+// Page Collection
+export const PageCollection: Collection = {
+	name: "page",
+	label: "Pages",
+	path: "src/content/pages",
+	format: "mdx",
+
+	ui: {
+		router: ({ document }) => {
+			if (document._sys.filename === "home") {
+				return "/";
+			}
+			return `/${document._sys.filename}`;
+		},
+	},
+
+	fields: [
+		{
+			type: "string",
+			name: "title",
+			label: "Page Title",
+			isTitle: true,
+			required: true,
+		},
+		{
+			type: "string",
+			name: "description",
+			label: "SEO Description",
+			ui: {
+				component: "textarea",
+			},
+		},
+		{
+			type: "string",
+			name: "lang",
+			label: "Language",
+			options: ["nl", "en", "ar"],
+			required: true,
+		},
+		{
+			type: "object",
+			list: true,
+			name: "blocks",
+			label: "Content Blocks",
+			templates: [
+				heroBlockSchema,
+				textBlockSchema,
+				imageTextBlockSchema,
+			],
+		},
+	],
+};
+
+// Blog Collection
+export const BlogCollection: Collection = {
+	name: "blog",
+	label: "Blog Posts",
+	path: "src/content/blog",
+	format: "mdx",
+	ui: {
+		router: ({ document }) => `/blog/${document._sys.filename}`,
+	},
+	fields: [
+		{
+			type: "string",
+			name: "title",
+			label: "Title",
+			isTitle: true,
+			required: true,
+		},
+		{
+			type: "string",
+			name: "description",
+			label: "Description",
+			ui: {
+				component: "textarea",
+			},
+		},
+		{
+			type: "datetime",
+			name: "publishDate",
+			label: "Publish Date",
+			required: true,
+		},
+		{
+			type: "image",
+			name: "featuredImage",
+			label: "Featured Image",
+		},
+		{
+			type: "string",
+			name: "excerpt",
+			label: "Excerpt",
+			ui: {
+				component: "textarea",
+			},
+		},
+		{
+			type: "string",
+			list: true,
+			name: "tags",
+			label: "Tags",
+		},
+		{
+			type: "string",
+			list: true,
+			name: "authors",
+			label: "Authors",
+		},
+		{
+			type: "string",
+			name: "lang",
+			label: "Language",
+			options: ["nl", "en", "ar"],
+			required: true,
+		},
+		{
+			type: "rich-text",
+			name: "body",
+			label: "Body",
+			isBody: true,
+		},
+	],
+};
+
+// Activities Collection
+export const ActivitiesCollection: Collection = {
+	name: "activities",
+	label: "Activities",
+	path: "src/content/activities",
+	format: "mdx",
+	ui: {
+		router: ({ document }) => `/activities/${document._sys.filename}`,
+	},
+	fields: [
+		{
+			type: "string",
+			name: "title",
+			label: "Activity Title",
+			required: true,
+		},
+		{
+			type: "string",
+			name: "type",
+			label: "Activity Type",
+			options: ["workshop", "lecture", "field-trip", "soup-kitchen", "farm-reads", "other"],
+		},
+		{
+			type: "datetime",
+			name: "date",
+			label: "Date",
+			required: true,
+		},
+		{
+			type: "string",
+			name: "location",
+			label: "Location",
+		},
+		{
+			type: "string",
+			name: "description",
+			label: "Short Description",
+			ui: {
+				component: "textarea"
+			},
+		},
+		{
+			type: "image",
+			name: "image",
+			label: "Activity Image",
+		},
+		{
+			type: "boolean",
+			name: "upcoming",
+			label: "Upcoming Event",
+		},
+		{
+			type: "string",
+			name: "lang",
+			label: "Language",
+			options: ["nl", "en", "ar"],
+			required: true,
+		},
+		{
+			type: "rich-text",
+			name: "body",
+			label: "Full Description",
+			isBody: true,
+		},
+	],
+};
 
 export default defineConfig({
-	branch,
-	clientId: process.env.PUBLIC_TINA_CLIENT_ID,
+	// Use environment variables for authentication
+	branch: process.env.TINA_BRANCH || "main",
+	clientId: process.env.TINA_PUBLIC_CLIENT_ID,
 	token: process.env.TINA_TOKEN,
-
 	build: {
 		outputFolder: "admin",
 		publicFolder: "public",
 	},
-
 	media: {
 		tina: {
-			mediaRoot: "uploads",
+			mediaRoot: "assets",
 			publicFolder: "public",
 		},
 	},
-
-	// Enhanced search configuration
 	search: {
 		tina: {
 			indexerToken: process.env.TINA_SEARCH_TOKEN,
-			stopwordLanguages: ['heb'], // Hebrew stopwords
+			stopwordLanguages: ["eng", "nld"],
 		},
+		indexBatchSize: 100,
+		maxSearchIndexFieldLength: 100,
 	},
-
 	schema: {
-		collections: [
-			PageCollection,
-			BlogCollection,
-			ComponentsCollection,
-			GlobalConfigCollection,
-		],
-	},
-
-	// Visual editing configuration
-	cmsCallback: (cms) => {
-		// Custom field plugins
-		cms.plugins.add({
-			__type: 'field',
-			name: 'rtl-text',
-			Component: ({ input, meta, field }) => {
-				return (
-					<div dir="rtl" style={{ textAlign: 'right' }}>
-				<textarea
-					{...input}
-				style={{
-					direction: 'rtl',
-						textAlign: 'right',
-						fontFamily: 'Arial, sans-serif'
-				}}
-				/>
-				</div>
-			);
-			},
-		});
+		collections: [PageCollection, BlogCollection, ActivitiesCollection],
 	},
 });

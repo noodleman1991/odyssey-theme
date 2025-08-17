@@ -20,12 +20,9 @@ const blog = defineCollection({
 					...node,
 					id: node._sys.relativePath.replace(/\.mdx?$/, ""),
 					tinaInfo: node._sys,
-					// Normalize field names for Astro schema
-					pubDate: node.publishDate ? new Date(node.publishDate) : new Date(),
-					updatedDate: node.updatedDate
-						? new Date(node.updatedDate)
-						: undefined,
-					heroImage: node.featuredImage ?? undefined, // normalize field naming
+					// Map Tina field names to Astro expected names
+					pubDate: node.publishDate, // Let Zod coerce this to Date
+					heroImage: node.featuredImage, // Let Zod handle nullish values
 				};
 			});
 	},
@@ -38,9 +35,9 @@ const blog = defineCollection({
 		}),
 		title: z.string(),
 		description: z.string().optional(),
-		pubDate: z.date(),
-		updatedDate: z.date().optional(),
-		heroImage: z.string().optional(),
+		pubDate: z.coerce.date(),
+		updatedDate: z.coerce.date().optional(), // Will be undefined if not in Tina schema
+		heroImage: z.string().nullish(),
 		body: z.any(),
 	}),
 });
@@ -70,7 +67,7 @@ const page = defineCollection({
 		title: z.string(),
 		description: z.string().optional(),
 		lang: z.enum(["he", "en", "ar"]).default("he"),
-		ogImage: z.string().optional(),
+		ogImage: z.string().nullish(),
 		blocks: z.array(z.any()).optional(),
 	}),
 });
