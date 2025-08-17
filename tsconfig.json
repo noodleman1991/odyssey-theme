@@ -1,6 +1,10 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+    "target": "ES2020",
+    "module": "ES2020",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
@@ -18,7 +22,9 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
-    "types": ["astro/client", "@astrojs/image/client"]
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "emitDecoratorMetadata": true,
+    "types": ["astro/client"]
   },
   "include": ["src/**/*", "tina/**/*"],
   "exclude": ["node_modules", "dist"]

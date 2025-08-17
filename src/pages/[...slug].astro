@@ -1,0 +1,53 @@
+---
+import type { GetStaticPaths } from "astro";
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+import client from "../../tina/__generated__/client";
+import VisualLayout from "../layouts/VisualLayout.astro";
+import VisualPage from "../../tina/components/VisualPage";
+
+// Type for the page collection entry
+type PageEntry = CollectionEntry<"page">;
+
+// Type for the TinaCMS query result
+type TinaProps = Awaited<ReturnType<typeof client.queries.page>>;
+
+export const getStaticPaths: GetStaticPaths = async () => {
+	const pages: PageEntry[] = await getCollection("page");
+
+	return pages.map((page: PageEntry) => ({
+		params: {
+			slug: page.id === 'home' ? undefined : page.id
+		},
+		props: {
+			page,
+			getTinaProps: async (): Promise<TinaProps> =>
+				client.queries.page({
+					relativePath: page.data.tinaInfo.relativePath,
+				}),
+		},
+	}));
+};
+
+// Type the Astro.props
+interface Props {
+	page: PageEntry;
+	getTinaProps: () => Promise<TinaProps>;
+}
+
+const { page, getTinaProps }: Props = Astro.props;
+const tinaProps: TinaProps = await getTinaProps();
+const pageData = tinaProps.data.page;
+
+// Handle potential null values and type mismatches
+const layoutProps = {
+	title: pageData.title,
+	description: pageData.description || undefined, // Convert null to undefined
+	lang: pageData.lang as "he" | "en" | "ar" | undefined, // Type assertion for lang
+	ogImage: (pageData as any).ogImage || undefined, // Handle missing ogImage
+};
+---
+
+<VisualLayout {...layoutProps}>
+	<VisualPage data={tinaProps.data} query={tinaProps.query} variables={tinaProps.variables} client:tina />
+</VisualLayout>

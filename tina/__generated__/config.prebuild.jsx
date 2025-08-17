@@ -241,9 +241,17 @@ var config_default = defineConfig({
   },
   media: {
     tina: {
-      mediaRoot: "uploads",
+      mediaRoot: "assets",
       publicFolder: "public"
     }
+  },
+  search: {
+    tina: {
+      indexerToken: process.env.TINA_SEARCH_TOKEN,
+      stopwordLanguages: ["eng", "nld"]
+    },
+    indexBatchSize: 100,
+    maxSearchIndexFieldLength: 100
   },
   schema: {
     collections: [pageCollection, blogCollection, activitiesCollection]

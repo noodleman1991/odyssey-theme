@@ -1,0 +1,81 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+export interface Props {
+	title: string;
+	description?: string;
+	lang?: 'he' | 'en' | 'ar';
+	ogImage?: string;
+}
+
+const {
+	title,
+	description = "Default description",
+	lang = 'he',
+	ogImage
+} = Astro.props;
+
+const isRTL = lang === 'he' || lang === 'ar';
+---
+
+<!DOCTYPE html>
+<html lang={lang} dir={isRTL ? 'rtl' : 'ltr'}>
+<head>
+	<BaseHead
+		title={title}
+		description={description}
+		image={ogImage}
+	/>
+
+	<!-- RTL-specific styles -->
+	{isRTL && (
+		<style>
+        .rtl {
+            direction: rtl;
+            text-align: right;
+        }
+        .rtl .prose {
+            text-align: right;
+        }
+        .rtl .grid-flow-col {
+            direction: ltr;
+        }
+		</style>
+	)}
+
+	<!-- TinaCMS styles -->
+	<style>
+      [data-tina-field] {
+          outline: 2px solid transparent;
+          transition: outline 0.2s ease;
+      }
+
+      [data-tina-field]:hover {
+          outline: 2px solid #3b82f6;
+          outline-offset: 2px;
+      }
+
+      .tina-editing [data-tina-field] {
+          min-height: 2rem;
+      }
+	</style>
+</head>
+
+<body class={isRTL ? 'rtl' : 'ltr'}>
+<Header />
+<main>
+	<slot />
+</main>
+<Footer />
+
+<!-- TinaCMS visual editing enhancements -->
+<script>
+	// Add visual editing helpers
+	if (window.location.search.includes('tina-admin')) {
+		document.body.classList.add('tina-editing');
+	}
+</script>
+</body>
+</html>
