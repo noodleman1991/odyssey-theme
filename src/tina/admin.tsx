@@ -1,21 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import { TinaAdmin } from "tinacms";
+import tinaConfig from "../../tina/config";
 
-const TinaAdmin: React.FC = () => {
-  return (
-    <div id="tina-admin-placeholder">
-      <h1>TinaCMS Admin</h1>
-      <p>Configure TinaCMS Cloud to enable editing</p>
-    </div>
-  );
+const TinaCMSAdmin = () => {
+	return <TinaAdmin config={tinaConfig} />;
 };
 
-if (typeof window !== 'undefined') {
-  const container = document.getElementById('tina-admin');
-  if (container) {
-    const root = ReactDOM.createRoot(container);
-    root.render(<TinaAdmin />);
-  }
-}
-
-export default TinaAdmin;
+export default TinaCMSAdmin;

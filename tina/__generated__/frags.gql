@@ -1,0 +1,62 @@
+fragment PageParts on Page {
+  __typename
+  title
+  description
+  lang
+  blocks {
+    __typename
+    ... on PageBlocksHero {
+      heading
+      subheading
+      text
+      image
+      cta {
+        __typename
+        text
+        href
+      }
+      layout
+    }
+    ... on PageBlocksTextBlock {
+      heading
+      content
+      alignment
+      narrow
+    }
+    ... on PageBlocksTextImage {
+      heading
+      subheading
+      text
+      image
+      imageAlt
+      layout
+      sticky
+    }
+  }
+}
+
+fragment BlogParts on Blog {
+  __typename
+  title
+  description
+  publishDate
+  featuredImage
+  excerpt
+  tags
+  authors
+  lang
+  body
+}
+
+fragment ActivitiesParts on Activities {
+  __typename
+  title
+  type
+  date
+  location
+  description
+  image
+  upcoming
+  lang
+  body
+}
