@@ -29,13 +29,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 	}));
 };
 
-// Type the Astro.props
+// Type the Astro.props - make it more flexible to match Astro's actual structure
 interface Props {
 	page: PageEntry;
 	getTinaProps: () => Promise<TinaProps>;
+	[key: string]: any; // Allow additional properties from Astro
 }
 
-const { page, getTinaProps }: Props = Astro.props;
+const { page, getTinaProps } = Astro.props as Props;
 const tinaProps: TinaProps = await getTinaProps();
 const pageData = tinaProps.data.page;
 
@@ -49,5 +50,5 @@ const layoutProps = {
 ---
 
 <VisualLayout {...layoutProps}>
-	<VisualPage data={tinaProps.data} query={tinaProps.query} variables={tinaProps.variables} client:tina />
+	<VisualPage {...tinaProps} client:load />
 </VisualLayout>
